@@ -17,13 +17,13 @@ const links: ContactLink[] = [
   },
   {
     label: 'GitHub',
-    value: 'github.com/...',
-    href: 'TODO',
+    value: '@alexander-e-bauer',
+    href: 'https://github.com/alexander-e-bauer',
     Icon: Github,
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/alexander-e-bauer',
+    value: '@alexander-e-bauer',
     href: 'https://www.linkedin.com/in/alexander-e-bauer',
     Icon: Linkedin,
   },
@@ -47,7 +47,7 @@ const Contact: React.FC = () => {
           everything.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {visibleLinks.map(({ label, value, href, Icon }) => (
             <a
               key={label}
@@ -61,7 +61,7 @@ const Contact: React.FC = () => {
               <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-1">
                 {label}
               </p>
-              <p className="text-sm font-medium text-foreground break-all">
+              <p className="text-sm font-medium text-foreground truncate">
                 {value}
               </p>
             </a>

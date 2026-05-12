@@ -13,6 +13,6 @@ git commit -am "make it better"
 
 # Push the changes to the Heroku main branch
 echo "Pushing to Heroku..."
-git push heroku master
+git push origin main
 
 echo "Deployment to Heroku completed successfully!"

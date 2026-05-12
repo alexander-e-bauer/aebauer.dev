@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -21,8 +21,19 @@ const Footer: React.FC = () => {
               <Mail className="w-5 h-5" />
             </a>
             <a
+              href="https://github.com/alexander-e-bauer"
+              aria-label="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[hsl(var(--aurora-2))] transition-colors focus-visible:outline-none focus-visible:text-[hsl(var(--aurora-2))]"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
               href="https://www.linkedin.com/in/alexander-e-bauer"
               aria-label="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-[hsl(var(--aurora-2))] transition-colors focus-visible:outline-none focus-visible:text-[hsl(var(--aurora-2))]"
             >
               <Linkedin className="w-5 h-5" />
