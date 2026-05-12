@@ -1,0 +1,205 @@
+/* ================================================================
+   CONVERSATION SIDEBAR - SOLID/BRUSHED GLASS BACKGROUND
+   ================================================================
+   Creates solid opaque background with optional subtle blur effect
+   ================================================================= */
+
+/* Main sidebar - solid background with optional blur */
+[data-sidebar="conversation"] {
+  background-color: hsl(var(--background)) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  opacity: 1 !important;
+}
+
+/* Add semi-transparent overlay for brushed glass effect */
+[data-sidebar="conversation"]::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: hsl(var(--background) / 0.95) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure content is above the overlay */
+[data-sidebar="conversation"] > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Card backgrounds - fully opaque */
+[data-sidebar="conversation"] section,
+[data-sidebar="conversation"] header {
+  background-color: hsl(var(--card)) !important;
+  opacity: 1 !important;
+}
+
+/* ================================================================
+   HOVER & SELECTION COLORS - Customize these!
+   ================================================================ */
+
+/* Button hover states - subtle gray/blue */
+[data-sidebar="conversation"] button:hover {
+  background-color: rgba(251, 191, 36, 0.1) !important; /* Slate */
+}
+
+/* Close button specific hover */
+[data-sidebar="conversation"] button[aria-label="Close sidebar"]:hover {
+  background-color: rgba(251, 191, 36, 0.1) !important; /* Lighter slate */
+}
+
+/* Debug button hover */
+[data-sidebar="conversation"] button:not(.bg-primary):hover {
+  background-color: rgba(251, 191, 36, 0.1) !important;
+}
+
+/* Focus states - subtle blue ring */
+[data-sidebar="conversation"] button:focus,
+[data-sidebar="conversation"] button:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5) !important;
+  outline-offset: 2px !important;
+}
+
+/* Selection/highlight colors */
+[data-sidebar="conversation"] ::selection {
+  background-color: rgba(59, 130, 246, 0.2) !important; /* Subtle blue */
+  color: inherit !important;
+}
+
+/* Link hover states (if any) */
+[data-sidebar="conversation"] a:hover {
+  background-color: rgba(100, 116, 139, 0.08) !important;
+}
+
+/* ================================================================
+   MESSAGE BUBBLES
+   ================================================================ */
+
+/* Message bubbles - AI (blue tint, left aligned) */
+[data-sidebar="conversation"] .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+[data-sidebar="conversation"] .border-blue-500\/30 {
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Message bubbles - Caller (green tint, right aligned) */
+[data-sidebar="conversation"] .bg-emerald-500\/10 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+[data-sidebar="conversation"] .border-emerald-500\/30 {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+/* ================================================================
+   THEME COLORS
+   ================================================================ */
+
+/* Text colors - ensure they use theme */
+[data-sidebar="conversation"] .text-foreground {
+  color: hsl(var(--foreground)) !important;
+}
+
+[data-sidebar="conversation"] .text-muted-foreground {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+[data-sidebar="conversation"] .text-primary {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Border colors */
+[data-sidebar="conversation"] .border-border {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Accent backgrounds - override the green */
+[data-sidebar="conversation"] .bg-accent {
+  background-color: rgba(100, 116, 139, 0.1) !important; /* Subtle slate instead of green */
+}
+
+[data-sidebar="conversation"] .bg-card {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* Accent text color */
+[data-sidebar="conversation"] .text-accent-foreground {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* ================================================================
+   Z-INDEX & SCROLLBAR
+   ================================================================ */
+
+/* Ensure proper z-index stacking */
+[data-sidebar="conversation"] {
+  z-index: 1000 !important;
+}
+
+/* Scrollbar styling for dialogue section */
+[data-sidebar="conversation"] .overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+[data-sidebar="conversation"] .overflow-y-auto::-webkit-scrollbar-track {
+  background: hsl(var(--muted) / 0.3);
+  border-radius: 3px;
+}
+
+[data-sidebar="conversation"] .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.5);
+  border-radius: 3px;
+}
+
+[data-sidebar="conversation"] .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.7);
+}
+
+/* ================================================================
+   ALTERNATIVE COLOR OPTIONS (uncomment to use)
+   ================================================================ */
+
+/* Option 1: Soft purple hover */
+/*
+[data-sidebar="conversation"] button:hover {
+  background-color: rgba(139, 92, 246, 0.1) !important;
+}
+*/
+
+/* Option 2: Warm amber hover */
+
+
+
+/* Option 3: Cool cyan hover */
+/*
+[data-sidebar="conversation"] button:hover {
+  background-color: rgba(6, 182, 212, 0.1) !important;
+}
+*/
+
+/* Option 4: Neutral gray hover */
+/*
+[data-sidebar="conversation"] button:hover {
+  background-color: rgba(156, 163, 175, 0.12) !important;
+}
+*/
+
+/* Optional: For fully solid (no blur), uncomment below and comment out the backdrop-filter above */
+/*
+[data-sidebar="conversation"] {
+  background-color: hsl(var(--background)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-sidebar="conversation"]::before {
+  background-color: hsl(var(--background)) !important;
+}
+*/
