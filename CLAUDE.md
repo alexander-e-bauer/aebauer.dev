@@ -29,6 +29,6 @@ This is a portfolio site (`portfolio-v1`) — currently a single-page landing bu
 
 **Environment variables** are Vite-style (`VITE_*`) in `.env`. The current landing page does not consume them, but `VITE_API_BASE_URL`, `VITE_TWILIO_NUMBER`, and `VITE_STRIPE_PUBLISHABLE_KEY` are defined — historically used by the archived app. Note that `.env` is checked in and currently contains a live Stripe publishable key; flag any change that would expose more secrets.
 
-**Deployment** is Heroku. `Procfile` runs `npm run start` (static serve of `dist/`). `deploy.sh` does `git add . && git commit -am "make it better" && git push heroku master` — it commits everything in the working tree with a fixed message, so be careful what's staged before invoking it. `.slugignore` excludes `server/` and `*.d.ts` from the slug.
+**Deployment** is Vercel via GitHub. Pushing to `origin/main` on `github.com/alexander-e-bauer/aebauer.dev` triggers a Vercel build that publishes to `https://aebauer.dev`. `push.sh` is the one-shot helper: it does `git add . && git commit -m "<msg>" && git push origin main` and accepts the commit message as `./push.sh "msg"` or prompts for it interactively. The Heroku-era `Procfile` and `.slugignore` are still in the tree but unused by the Vercel path.
 
 **The HTML title is `seraphone.ai`** (`index.html`) — Seraphone is one of the showcased projects, not the framework. Don't "fix" the title to match the package name (`phone_app`) or the directory (`portfolio-v1`).
