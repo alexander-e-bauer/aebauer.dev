@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ProjectCard, { type ProjectCardData } from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
 
@@ -53,7 +53,14 @@ const projects: ProjectCardData[] = [
 
 // Animated open/close height. Uses ResizeObserver so the drawer re-fits when
 // inner content size changes after the initial open (image loads, font swap, etc.).
-const AnimateHeight: React.FC<{ open: boolean; children: React.ReactNode }> = ({ open, children }) => {
+// Fires `onOpened` once the open-transition completes, so callers can run
+// post-animation work (e.g. scrollIntoView) without timing it by hand.
+const AnimateHeight: React.FC<{
+  open: boolean;
+  onOpened?: () => void;
+  children: React.ReactNode;
+}> = ({ open, onOpened, children }) => {
+  const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
@@ -72,8 +79,22 @@ const AnimateHeight: React.FC<{ open: boolean; children: React.ReactNode }> = ({
     return () => observer.disconnect();
   }, [open, children]);
 
+  useEffect(() => {
+    if (!open || !onOpened) return;
+    const outer = outerRef.current;
+    if (!outer) return;
+    const handle = (e: TransitionEvent) => {
+      if (e.target === outer && e.propertyName === 'height') onOpened();
+    };
+    outer.addEventListener('transitionend', handle);
+    return () => outer.removeEventListener('transitionend', handle);
+  }, [open, onOpened]);
+
   return (
-    <div style={{ height, overflow: 'hidden', transition: 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}>
+    <div
+      ref={outerRef}
+      style={{ height, overflow: 'hidden', transition: 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1)' }}
+    >
       <div ref={innerRef}>{children}</div>
     </div>
   );
@@ -82,7 +103,7 @@ const AnimateHeight: React.FC<{ open: boolean; children: React.ReactNode }> = ({
 const Projects: React.FC = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const containerRef = useRef<HTMLElement>(null);
-  const drawerRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const drawerRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Close on outside click or Escape.
   useEffect(() => {
@@ -101,19 +122,14 @@ const Projects: React.FC = () => {
     };
   }, [openId]);
 
-  const rows = [projects.slice(0, 2), projects.slice(2, 4)];
+  const rows = useMemo(() => [projects.slice(0, 2), projects.slice(2, 4)], []);
 
-  // When a drawer opens, smooth-scroll it into view so the bottom isn't clipped by the fold.
-  useEffect(() => {
+  // Scrolls the open drawer into view after its height transition settles.
+  // Passed to <AnimateHeight onOpened> so we don't have to time the transition by hand.
+  const scrollOpenIntoView = () => {
     if (!openId) return;
-    const rowIdx = rows.findIndex((row) => row.some((p) => p.id === openId));
-    if (rowIdx < 0) return;
-    const t = window.setTimeout(() => {
-      drawerRefs.current[rowIdx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 420); // run after the open transition (~400ms) finishes
-    return () => window.clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openId]);
+    drawerRefs.current[openId]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
 
   return (
     <section
@@ -150,11 +166,11 @@ const Projects: React.FC = () => {
                   ))}
                 </div>
 
-                <AnimateHeight open={Boolean(openProject)}>
+                <AnimateHeight open={Boolean(openProject)} onOpened={scrollOpenIntoView}>
                   {openProject && (
                     <div
                       ref={(el) => {
-                        drawerRefs.current[rowIdx] = el;
+                        drawerRefs.current[openProject.id] = el;
                       }}
                     >
                       <ProjectDetail project={openProject} />

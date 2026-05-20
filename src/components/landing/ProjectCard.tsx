@@ -39,8 +39,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   return (
     <article
+      role="button"
+      tabIndex={0}
+      aria-expanded={isOpen}
+      aria-controls={drawerId}
       onClick={onToggle}
-      className="group border-aurora relative flex flex-col p-7 rounded-2xl border border-white/10 bg-card hover:border-white/20 hover:shadow-xl hover:shadow-[hsl(var(--aurora-2))]/10 transition-all duration-300 cursor-pointer"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
+      className="group border-aurora relative flex flex-col p-7 rounded-2xl border border-white/10 bg-card hover:border-white/20 hover:shadow-xl hover:shadow-[hsl(var(--aurora-2))]/10 transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       style={{
         boxShadow: isOpen
           ? '0 0 0 1px hsl(var(--aurora-2) / 0.55), 0 20px 40px -10px hsl(var(--aurora-2) / 0.2)'

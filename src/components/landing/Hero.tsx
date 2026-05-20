@@ -23,15 +23,17 @@ const Hero: React.FC = () => {
 
   // Direct DOM manipulation for parallax — bypasses React reconciliation on every
   // scroll tick, which is what was making the motion feel jumpy.
+  // Uses `transform: translate3d` (universally supported + GPU-composited) rather
+  // than the newer CSS `translate` property.
   useEffect(() => {
     if (reduceMotion) {
-      if (bgRef.current) bgRef.current.style.translate = '0 0';
+      if (bgRef.current) bgRef.current.style.transform = 'translate3d(0, 0, 0)';
       return;
     }
     let raf = 0;
     const update = () => {
       if (bgRef.current) {
-        bgRef.current.style.translate = `0 ${window.scrollY * PARALLAX_FACTOR}px`;
+        bgRef.current.style.transform = `translate3d(0, ${window.scrollY * PARALLAX_FACTOR}px, 0)`;
       }
       raf = 0;
     };
