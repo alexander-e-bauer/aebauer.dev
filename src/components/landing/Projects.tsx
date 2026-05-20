@@ -12,7 +12,7 @@ const projects: ProjectCardData[] = [
     longDescription:
       "Seraphone replaces traditional IVR phone trees with a real-time AI receptionist that handles intake, scheduling, and triage on its own. Built around a PostgreSQL knowledge graph that encodes each client's business rules, the system answers in natural language, hands off to a human only when escalation makes sense, and writes back to existing CRMs. HIPAA-compliant from the data flow up: application-level encryption, PII scrubbing on every transcript, and end-to-end encrypted SMS callbacks.",
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Twilio', 'React', 'TypeScript'],
-    url: 'TODO',
+    url: 'https://seraphone.ai',
     screenshot: '/assets/landing/dashboard-mockup.png',
     demoNumbers: ['+1-248-846-1901', '+1-248-710-0164'],
   },
@@ -25,7 +25,7 @@ const projects: ProjectCardData[] = [
     longDescription:
       "A codebase analyzer that turns a repo into a queryable knowledge graph. Tree-sitter parses every file into ASTs; the RAPTOR architecture clusters and summarizes upward to produce a hierarchical semantic graph; a chat engine surfaces answers to architecture-level questions — \"where does the auth boundary live?\", \"what gets touched if I rename this table?\" — without dumping raw code at the LLM.",
     stack: ['Python', 'Tree-sitter', 'Vector Embeddings', 'LLMs'],
-    url: 'TODO',
+    url: 'https://kg.aebauer.dev',
   },
   {
     id: 'wealth',
@@ -36,18 +36,18 @@ const projects: ProjectCardData[] = [
     longDescription:
       'A recommendation engine for portfolio option-overlay strategies. Vector embeddings encode each holding, candidate strategy, and historical outcome; a FastAPI service surfaces context-aware suggestions tuned for advisors managing accredited-investor accounts. The model surfaces the why behind each suggestion, not just the what — designed to slot into an existing advisor workflow rather than replace it.',
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Vector Embeddings', 'TypeScript'],
-    url: 'TODO',
+    url: 'https://isadora.ai',
   },
   {
-    id: 'chatbot',
-    subtitle: 'Open Source',
-    title: 'React/Flask AI Chatbot',
+    id: 'ml',
+    subtitle: 'ML/AI Boilerplate — Live Demo',
+    title: 'R Machine Learning',
     description:
-      'Reference chatbot pairing a React frontend with a Flask + Socket.IO backend. Document embeddings power retrieval; a teaching scaffold for clients spinning up a chat interface fast.',
+      'Modern ML/AI boilerplate built on the bones of a 2019 R portfolio. FastAPI + Postgres/pgvector + Vite stack; two live demos — a heart-disease classifier and RAG over the legacy datasets, powered by Vertex AI (Gemini).',
     longDescription:
-      'A reference chatbot scaffold: React frontend, Flask + Socket.IO backend, document embeddings for retrieval. I keep it updated as a fast on-ramp for clients who want to spin up a chat interface in days, not weeks. Public source on GitHub.',
-    stack: ['React', 'Python', 'Flask', 'Socket.IO'],
-    url: 'TODO',
+      'A working ML/AI boilerplate built on the bones of a 2019 R machine-learning portfolio. The original R scripts and CSVs sit untouched under legacy/; the rest is a modern FastAPI + Postgres (pgvector) + Vite/TypeScript stack. Two end-to-end demos run live: a gradient-boosted scikit-learn pipeline for heart-disease prediction, and a RAG chat over summaries of every legacy dataset — embeddings via Vertex text-embedding-005 stored in pgvector, generation via Gemini 2.5 Flash. The legacy R work (SVM, PCA, k-means, CART, bagging, random forests, gradient boosting, splines) is preserved as-is for provenance.',
+    stack: ['Python', 'FastAPI', 'PostgreSQL/pgvector', 'Vertex AI', 'scikit-learn', 'TypeScript'],
+    url: 'https://ml.aebauer.dev',
   },
 ];
 
