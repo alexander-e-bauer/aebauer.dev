@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
       <div
         ref={bgRef}
         aria-hidden="true"
-        className="hero-bg-image pointer-events-none absolute left-[-10%] right-[-10%] top-[-40%] bottom-[-40%] -z-20 bg-[url('/assets/landing/TObeK.png')] bg-cover bg-center"
+        className="hero-bg-image pointer-events-none absolute left-[-10%] right-[-10%] top-[-40%] bottom-[-40%] -z-20 bg-[url('/assets/landing/hero-bg.webp')] bg-cover bg-center"
         style={{ willChange: reduceMotion ? undefined : 'transform' }}
       />
       {/* Dark wash so text and glass pane read against the photographic texture. */}

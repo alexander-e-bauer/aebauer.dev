@@ -30,8 +30,6 @@ const links: ContactLink[] = [
 ];
 
 const Contact: React.FC = () => {
-  const visibleLinks = links.filter((l) => l.href !== 'TODO');
-
   return (
     <section id="contact" className="relative py-24 md:py-32 scroll-mt-24">
       <div className="container mx-auto px-6 max-w-3xl">
@@ -48,7 +46,7 @@ const Contact: React.FC = () => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {visibleLinks.map(({ label, value, href, Icon }) => (
+          {links.map(({ label, value, href, Icon }) => (
             <a
               key={label}
               href={href}
