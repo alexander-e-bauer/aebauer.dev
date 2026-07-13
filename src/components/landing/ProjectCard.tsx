@@ -1,5 +1,12 @@
 import React from 'react';
-import { ChevronDown, Phone } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Phone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export interface DemoNumber {
+  /** Who answers and what the demo shows, e.g. "Summit Comfort — business demo (HVAC)". */
+  label: string;
+  number: string;
+}
 
 export interface ProjectCardData {
   id: string;
@@ -10,7 +17,9 @@ export interface ProjectCardData {
   stack: string[];
   url: string;
   screenshot?: string;
-  demoNumbers?: string[];
+  demoNumbers?: DemoNumber[];
+  /** Label for an always-visible "open the live demo" button on the card. */
+  demoCta?: string;
 }
 
 export interface ProjectCardProps extends ProjectCardData {
@@ -31,7 +40,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   subtitle,
   description,
   stack,
+  url,
   demoNumbers,
+  demoCta,
   isOpen,
   onToggle,
 }) => {
@@ -45,6 +56,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       aria-controls={drawerId}
       onClick={onToggle}
       onKeyDown={(e) => {
+        // Only toggle for keys pressed on the card itself — Enter on a nested
+        // link (call buttons, demo CTA) must activate the link, not the drawer.
+        if (e.target !== e.currentTarget) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           onToggle();
@@ -86,17 +100,40 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {demoNumbers && demoNumbers.length > 0 && (
         <div className="mb-5 grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {demoNumbers.map((number) => (
+          {demoNumbers.map(({ label, number }) => (
             <a
               key={number}
               href={`tel:${number}`}
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-aurora text-white text-sm font-semibold px-4 py-2.5 shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-aurora text-white px-4 py-2.5 text-center shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <Phone className="w-4 h-4" />
-              Call {formatPhone(number)}
+              <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                <Phone className="w-4 h-4" />
+                Call {formatPhone(number)}
+              </span>
+              <span className="text-[11px] font-medium leading-tight opacity-85">{label}</span>
             </a>
           ))}
+        </div>
+      )}
+
+      {demoCta && url && (
+        <div className="mb-5">
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-full bg-transparent shadow-none font-semibold border-[hsl(var(--aurora-2))]/50 text-[hsl(var(--aurora-2))] hover:bg-[hsl(var(--aurora-2))]/10 hover:text-[hsl(var(--aurora-2))] hover:border-[hsl(var(--aurora-2))]"
+          >
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {demoCta}
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </Button>
         </div>
       )}
 

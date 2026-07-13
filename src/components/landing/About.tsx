@@ -33,12 +33,16 @@ const About: React.FC = () => {
             Now I ship:{' '}
             <strong className="text-foreground font-semibold">Seraphone</strong>, a HIPAA-compliant
             AI telephony platform with two live demo lines you can call;{' '}
+            <strong className="text-foreground font-semibold">
+              an Atlas of Machine Understanding
+            </strong>
+            , 12,000 papers embedded, UMAP-projected, and RAPTOR-clustered into a navigable map;{' '}
             <strong className="text-foreground font-semibold">an AI codebase analyzer</strong>{' '}
             built on the RAPTOR architecture; and{' '}
             <strong className="text-foreground font-semibold">
               a vector-embedding recommendation engine
             </strong>{' '}
-            for option-overlay strategies in wealth management. The stack is Python, PostgreSQL,
+            for option-overlay strategies in wealth management (in progress). The stack is Python, PostgreSQL,
             TypeScript, with Power BI, Tableau, and Salesforce in the mix. I learned how
             businesses actually operate before I built tools that operate inside them.
           </p>

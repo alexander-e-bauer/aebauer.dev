@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import clsx from 'clsx';
 
-interface AppCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AppCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   icon?: React.ReactNode;

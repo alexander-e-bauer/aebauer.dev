@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProjectCard, { type ProjectCardData } from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
 
@@ -14,42 +14,42 @@ const projects: ProjectCardData[] = [
     stack: ['Python', 'FastAPI', 'PostgreSQL', 'Twilio', 'React', 'TypeScript'],
     url: 'https://seraphone.ai',
     screenshot: '/assets/landing/dashboard-mockup.png',
-    demoNumbers: ['+1-248-846-1901', '+1-248-710-0164'],
+    demoNumbers: [
+      { number: '+1-971-455-1825', label: 'Summit Comfort — business demo (HVAC)' },
+      { number: '+1-313-476-2606', label: 'Carol Carter — personal demo (family protection)' },
+    ],
+  },
+  {
+    id: 'atlas',
+    subtitle: 'Embedding Atlas — Live Demo',
+    title: 'An Atlas of Machine Understanding',
+    description:
+      '12,000 AI and philosophy papers embedded, projected with UMAP, and clustered into named regions by RAPTOR — drawn as a kernel-density relief map with filters and a full 3D view. The Guide: an agent that decomposes, retrieves, and cites. The 2019 R work survives as Foundations.',
+    longDescription:
+      'Vol. 01 of a hand-set editorial atlas of the ML literature. Twelve thousand papers — arXiv, PhilArchive, OpenAlex, lab blogs — are embedded, projected to 2D with UMAP, and clustered bottom-up with RAPTOR into labeled regions like "LLM Mechanics" and "Metaphysics, Mind, and Epistemic Foundations." The Map renders the corpus as a kernel-density relief with deck.gl, filterable by source and year, with region focus and a 3D view. The Guide is an agent that decomposes a question, retrieves against the corpus, and cites what it used. The original 2019 R portfolio (SVM, PCA, k-means, CART, random forests, gradient boosting, splines) is preserved intact as Foundations.',
+    stack: ['Python', 'FastAPI', 'PostgreSQL/pgvector', 'UMAP', 'RAPTOR', 'deck.gl (WebGL)', 'Vertex AI'],
+    url: 'https://ml.aebauer.dev',
+    screenshot: '/assets/landing/atlas-map.webp',
+    demoCta: 'Explore the atlas',
   },
   {
     id: 'raptor',
-    subtitle: 'RAPTOR Knowledge Graph',
+    subtitle: 'RAPTOR Knowledge Graph — Live Demo',
     title: 'AI Codebase Analyzer',
     description:
       'Tree-sitter parses a codebase into ASTs; RAPTOR builds a hierarchical semantic graph; a chat engine answers architecture-level questions against the index.',
     longDescription:
       "A codebase analyzer that turns a repo into a queryable knowledge graph. Tree-sitter parses every file into ASTs; the RAPTOR architecture clusters and summarizes upward to produce a hierarchical semantic graph; a chat engine surfaces answers to architecture-level questions — \"where does the auth boundary live?\", \"what gets touched if I rename this table?\" — without dumping raw code at the LLM.",
-    stack: ['Python', 'Tree-sitter', 'Vector Embeddings', 'LLMs'],
+    stack: ['Python', 'Tree-sitter', 'RAPTOR', 'Vector Embeddings', 'WebSockets', 'PostgreSQL'],
     url: 'https://kg.aebauer.dev',
-  },
-  {
-    id: 'wealth',
-    subtitle: 'Wealth Management Platform',
-    title: 'Option Overlay Recommender',
-    description:
-      'Recommendation engine for portfolio option-overlay strategies. Vector embeddings of holdings, strategies, and historical outcomes; FastAPI service for advisors managing accredited-investor accounts.',
-    longDescription:
-      'A recommendation engine for portfolio option-overlay strategies. Vector embeddings encode each holding, candidate strategy, and historical outcome; a FastAPI service surfaces context-aware suggestions tuned for advisors managing accredited-investor accounts. The model surfaces the why behind each suggestion, not just the what — designed to slot into an existing advisor workflow rather than replace it.',
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Vector Embeddings', 'TypeScript'],
-    url: 'https://isadora.ai',
-  },
-  {
-    id: 'ml',
-    subtitle: 'ML/AI Boilerplate — Live Demo',
-    title: 'R Machine Learning',
-    description:
-      'Modern ML/AI boilerplate built on the bones of a 2019 R portfolio. FastAPI + Postgres/pgvector + Vite stack; two live demos — a heart-disease classifier and RAG over the legacy datasets, powered by Vertex AI (Gemini).',
-    longDescription:
-      'A working ML/AI boilerplate built on the bones of a 2019 R machine-learning portfolio. The original R scripts and CSVs sit untouched under legacy/; the rest is a modern FastAPI + Postgres (pgvector) + Vite/TypeScript stack. Two end-to-end demos run live: a gradient-boosted scikit-learn pipeline for heart-disease prediction, and a RAG chat over summaries of every legacy dataset — embeddings via Vertex text-embedding-005 stored in pgvector, generation via Gemini 2.5 Flash. The legacy R work (SVM, PCA, k-means, CART, bagging, random forests, gradient boosting, splines) is preserved as-is for provenance.',
-    stack: ['Python', 'FastAPI', 'PostgreSQL/pgvector', 'Vertex AI', 'scikit-learn', 'TypeScript'],
-    url: 'https://ml.aebauer.dev',
+    screenshot: '/assets/landing/raptor-analyzer.webp',
+    demoCta: 'Try the live demo',
   },
 ];
+
+// Rows of two; an odd trailing card renders centered at column width.
+const projectRows: ProjectCardData[][] = [];
+for (let i = 0; i < projects.length; i += 2) projectRows.push(projects.slice(i, i + 2));
 
 // Animated open/close height. Uses ResizeObserver so the drawer re-fits when
 // inner content size changes after the initial open (image loads, font swap, etc.).
@@ -122,8 +122,6 @@ const Projects: React.FC = () => {
     };
   }, [openId]);
 
-  const rows = useMemo(() => [projects.slice(0, 2), projects.slice(2, 4)], []);
-
   // Scrolls the open drawer into view after its height transition settles.
   // Passed to <AnimateHeight onOpened> so we don't have to time the transition by hand.
   const scrollOpenIntoView = () => {
@@ -148,23 +146,28 @@ const Projects: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-3">
-          {rows.map((row, rowIdx) => {
+          {projectRows.map((row, rowIdx) => {
             const openProject = row.find((p) => p.id === openId);
+            const cards = row.map((project) => (
+              <ProjectCard
+                key={project.id}
+                {...project}
+                isOpen={openId === project.id}
+                onToggle={() =>
+                  setOpenId(openId === project.id ? null : project.id)
+                }
+              />
+            ));
 
             return (
               <div key={rowIdx} className="flex flex-col gap-3">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  {row.map((project) => (
-                    <ProjectCard
-                      key={project.id}
-                      {...project}
-                      isOpen={openId === project.id}
-                      onToggle={() =>
-                        setOpenId(openId === project.id ? null : project.id)
-                      }
-                    />
-                  ))}
-                </div>
+                {row.length === 1 ? (
+                  // Lone card: same width as one column of the two-up grid
+                  // below (50% minus half the gap-5), centered.
+                  <div className="md:w-[calc(50%-10px)] md:mx-auto">{cards}</div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">{cards}</div>
+                )}
 
                 <AnimateHeight open={Boolean(openProject)} onOpened={scrollOpenIntoView}>
                   {openProject && (

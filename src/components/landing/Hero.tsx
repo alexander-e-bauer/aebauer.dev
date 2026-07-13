@@ -88,7 +88,8 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-            Developer shipping production tools — telephony, vector search, forecasting.
+            Developer shipping production tools — an AI receptionist with two live demo lines
+            you can call right now, a 12,000-paper embedding atlas, a codebase knowledge graph.
             Day job: primary contact for financial advisors, wealth managers, and trust attorneys.
             Same skillset, both sides of the table.
           </p>
