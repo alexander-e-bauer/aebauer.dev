@@ -38,3 +38,12 @@ landing-*.png
 contact-*.png
 *-v[0-9]*.png
 notes/
+
+# design-sync (claude.ai/design). Durable inputs under .design-sync/ ARE
+# committed (config.json, docs/, previews/, *.tsx, compiled.css, NOTES.md);
+# only the generated/staged machine state below is ignored.
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
