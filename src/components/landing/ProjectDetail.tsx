@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, ImageOff } from 'lucide-react';
+import { ArrowUpRight, Github, ImageOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { ProjectCardData } from './ProjectCard';
 
@@ -72,28 +72,59 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
 
         {/* Long-form copy + site CTA */}
         <div className="md:col-span-2 flex flex-col">
-          <p className="text-xs font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-2">
-            About this project
-          </p>
+          <div className="flex items-baseline justify-between gap-4 mb-2">
+            <p className="text-xs font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))]">
+              About this project
+            </p>
+            {project.lastShipped && (
+              <p className="text-xs text-muted-foreground/70 whitespace-nowrap">
+                Shipped · {project.lastShipped}
+              </p>
+            )}
+          </div>
           <p className="text-sm leading-relaxed text-muted-foreground mb-6 flex-1">
             {project.longDescription ?? project.description}
           </p>
 
           {hasUrl ? (
-            <Button
-              asChild
-              className="rounded-full bg-aurora text-white font-semibold shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all w-full sm:w-auto"
-            >
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                View project site
-                <ArrowUpRight className="ml-1 w-4 h-4" />
-              </a>
-            </Button>
+            <div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  asChild
+                  className="rounded-full bg-aurora text-white font-semibold shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all w-full sm:w-auto"
+                >
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    View project site
+                    <ArrowUpRight className="ml-1 w-4 h-4" />
+                  </a>
+                </Button>
+                {project.github && (
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-full bg-transparent shadow-none font-semibold border-[hsl(var(--aurora-2))]/50 text-[hsl(var(--aurora-2))] hover:bg-[hsl(var(--aurora-2))]/10 hover:text-[hsl(var(--aurora-2))] hover:border-[hsl(var(--aurora-2))] w-full sm:w-auto"
+                  >
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Github className="w-4 h-4" />
+                      View code
+                    </a>
+                  </Button>
+                )}
+              </div>
+              {project.codeNote && (
+                <p className="mt-3 text-xs italic text-muted-foreground/70">{project.codeNote}</p>
+              )}
+            </div>
           ) : (
             <p className="text-xs italic text-muted-foreground/70">
               Project site link coming soon.

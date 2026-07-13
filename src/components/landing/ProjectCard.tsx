@@ -26,6 +26,12 @@ export interface ProjectCardData {
   live?: boolean;
   /** Italic microcopy under the call buttons suggesting what to say. */
   demoHint?: string;
+  /** Public repo URL — renders a "View code" button in the drawer. */
+  github?: string;
+  /** Quiet line under the drawer CTAs, e.g. "Code available on request." */
+  codeNote?: string;
+  /** Freshness signal shown in the drawer header, e.g. "July 2026". */
+  lastShipped?: string;
 }
 
 export interface ProjectCardProps extends ProjectCardData {

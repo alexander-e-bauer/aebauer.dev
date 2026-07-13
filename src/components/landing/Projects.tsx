@@ -21,6 +21,8 @@ const projects: ProjectCardData[] = [
     live: true,
     tagline: 'Twilio ↔ OpenAI Realtime voice · in-call governance · encrypted caller KG',
     demoHint: "Try: 'I'd like to book a service visit' — ninety seconds tells you more than this card can.",
+    lastShipped: 'July 2026',
+    codeNote: 'Code available on request.',
   },
   {
     id: 'atlas',
@@ -36,6 +38,8 @@ const projects: ProjectCardData[] = [
     demoCta: 'Explore the atlas',
     live: true,
     tagline: '12,000 papers · UMAP + RAPTOR · deck.gl relief',
+    lastShipped: 'June 2026',
+    github: 'https://github.com/alexander-e-bauer/r_machine_learning',
   },
   {
     id: 'raptor',
@@ -51,6 +55,8 @@ const projects: ProjectCardData[] = [
     demoCta: 'Try the live demo',
     live: true,
     tagline: 'Tree-sitter ASTs · hierarchical summaries · WebSocket chat',
+    lastShipped: 'July 2026',
+    codeNote: 'Code available on request.',
   },
 ];
 
