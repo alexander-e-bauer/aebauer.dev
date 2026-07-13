@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import Hero from './Hero';
 import Projects from './Projects';
+import HowIWork from './HowIWork';
 import About from './About';
 import Contact from './Contact';
 import Footer from './Footer';
@@ -14,6 +15,7 @@ const LandingPage: React.FC = () => {
       <main>
         <Hero />
         <Projects />
+        <HowIWork />
         <About />
         <Contact />
       </main>
