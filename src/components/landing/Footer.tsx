@@ -5,6 +5,20 @@ const Footer: React.FC = () => {
   return (
     <footer className="relative border-t border-white/5 py-10">
       <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2 pb-6 mb-6 border-b border-white/5 text-sm text-muted-foreground">
+          <p>
+            <span className="text-foreground font-medium">Currently building:</span>{' '}
+            improvements to the RAPTOR live demo.
+          </p>
+          <a
+            href="https://github.com/alexander-e-bauer/aebauer.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[hsl(var(--aurora-2))] transition-colors focus-visible:outline-none focus-visible:text-[hsl(var(--aurora-2))]"
+          >
+            This site is open source →
+          </a>
+        </div>
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="text-base font-bold tracking-tight text-foreground">
             Alex Bauer
