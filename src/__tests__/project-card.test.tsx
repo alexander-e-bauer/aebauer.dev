@@ -32,5 +32,6 @@ describe('ProjectCard skim layer', () => {
     render(<ProjectCard {...base} />);
     expect(screen.queryByTestId('live-pulse')).not.toBeInTheDocument();
     expect(screen.queryByText(/Try:/)).not.toBeInTheDocument();
+    expect(screen.queryByText('alpha · beta · gamma')).not.toBeInTheDocument();
   });
 });

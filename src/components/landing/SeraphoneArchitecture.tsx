@@ -58,7 +58,7 @@ const SeraphoneArchitecture: React.FC = () => (
         className="w-full h-auto min-w-[720px]"
       >
         <defs>
-          <linearGradient id="sera-aurora" x1="0" y1="0" x2="1" y2="0">
+          <linearGradient id="sera-aurora" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="960" y2="0">
             <stop offset="0%" stopColor="#fb923c" />
             <stop offset="100%" stopColor="#e879f9" />
           </linearGradient>
@@ -123,20 +123,20 @@ const SeraphoneArchitecture: React.FC = () => (
         <Edge d="M690,79 L550,79" />
 
         {/* Edges — fan-out */}
-        <Edge d="M346,85 C 280,85 231,140 231,206" />
+        <Edge d="M346,85 C 346,140 260,140 231,206" />
         <Edge d="M306,239 L342,239" />
         <Edge d="M546,239 L686,239" />
 
         {/* Edges — actions & memory */}
-        <Edge d="M370,158 C 320,190 240,250 207,326" />
-        <Edge d="M495,158 C 495,220 495,270 495,326" />
+        <Edge d="M370,158 C 340,195 320,235 320,280 C 320,300 260,320 207,326" />
+        <Edge d="M495,158 C 590,190 590,270 495,326" />
         <Edge d="M610,359 L666,359" />
 
         {/* Edge labels */}
-        <text x={252} y={258} fontSize="9" fontStyle="italic" fill={NOTE_FILL}>
+        <text x={222} y={300} fontSize="9" fontStyle="italic" fill={NOTE_FILL}>
           tool calls
         </text>
-        <text x={505} y={250} fontSize="9" fontStyle="italic" fill={NOTE_FILL}>
+        <text x={576} y={222} fontSize="9" fontStyle="italic" fill={NOTE_FILL}>
           after hang-up
         </text>
       </svg>

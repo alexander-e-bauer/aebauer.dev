@@ -27,6 +27,7 @@ describe('ProjectDetail drawer meta', () => {
       'href',
       'https://github.com/alexander-e-bauer/r_machine_learning'
     );
+    expect(screen.queryByText('OpenAI Realtime API')).not.toBeInTheDocument();
   });
 
   it('shows the code note when codeNote is set and no github link', () => {
