@@ -132,6 +132,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
           )}
         </div>
       </div>
+
+      {project.diagram && (
+        <div className="px-6 md:px-8 pb-6 md:pb-8">
+          <project.diagram />
+        </div>
+      )}
     </div>
   );
 };

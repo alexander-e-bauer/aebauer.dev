@@ -32,6 +32,8 @@ export interface ProjectCardData {
   codeNote?: string;
   /** Freshness signal shown in the drawer header, e.g. "July 2026". */
   lastShipped?: string;
+  /** Optional architecture diagram component rendered full-width in the drawer. */
+  diagram?: React.ComponentType;
 }
 
 export interface ProjectCardProps extends ProjectCardData {

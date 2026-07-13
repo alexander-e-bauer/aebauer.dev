@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProjectCard, { type ProjectCardData } from './ProjectCard';
 import ProjectDetail from './ProjectDetail';
+import SeraphoneArchitecture from './SeraphoneArchitecture';
 
 const projects: ProjectCardData[] = [
   {
@@ -10,10 +11,11 @@ const projects: ProjectCardData[] = [
     description:
       'Multi-tenant AI answering service replacing IVR for healthcare and professional services. Real-time voice, HIPAA-compliant, PostgreSQL knowledge graph, Twilio-backed. Two live demo lines below — call them.',
     longDescription:
-      "Seraphone replaces traditional IVR phone trees with a real-time AI receptionist that handles intake, scheduling, and triage on its own. Built around a PostgreSQL knowledge graph that encodes each client's business rules, the system answers in natural language, hands off to a human only when escalation makes sense, and writes back to existing CRMs. HIPAA-compliant from the data flow up: application-level encryption, PII scrubbing on every transcript, and end-to-end encrypted SMS callbacks.",
-    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Twilio', 'React', 'TypeScript'],
+      'Seraphone is a four-service mesh replacing IVR phone trees. Twilio media streams hit a FastAPI call engine holding a bidirectional WebSocket to the OpenAI Realtime API — an interruptible voice loop, governed while the call is live: compliance guardrails, spam and hostility detection, dead-air monitors, dynamic escalation. Call state fans out through Redis pub/sub to a live React dashboard. Tool actions — calendar, CRM, email — are offloaded to an MCP server behind one-time-nonce Fernet auth with tenant-bound credential injection. After hang-up, a post-call pipeline redacts PII, embeds with Vertex AI, and folds every call into a per-tenant caller knowledge graph on Postgres/pgvector, sensitive fields encrypted at rest.',
+    stack: ['Python', 'FastAPI', 'OpenAI Realtime', 'Twilio', 'PostgreSQL/pgvector', 'Redis', 'MCP', 'React'],
     url: 'https://seraphone.ai',
     screenshot: '/assets/landing/dashboard-mockup.png',
+    diagram: SeraphoneArchitecture,
     demoNumbers: [
       { number: '+1-971-455-1825', label: 'Summit Comfort — business demo (HVAC)' },
       { number: '+1-313-476-2606', label: 'Carol Carter — personal demo (family protection)' },
