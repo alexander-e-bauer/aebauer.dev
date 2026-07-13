@@ -20,6 +20,12 @@ export interface ProjectCardData {
   demoNumbers?: DemoNumber[];
   /** Label for an always-visible "open the live demo" button on the card. */
   demoCta?: string;
+  /** One-line technical skim under the title, middot-separated. */
+  tagline?: string;
+  /** Renders a pulsing dot before the subtitle eyebrow. */
+  live?: boolean;
+  /** Italic microcopy under the call buttons suggesting what to say. */
+  demoHint?: string;
 }
 
 export interface ProjectCardProps extends ProjectCardData {
@@ -43,6 +49,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   url,
   demoNumbers,
   demoCta,
+  tagline,
+  live,
+  demoHint,
   isOpen,
   onToggle,
 }) => {
@@ -88,32 +97,46 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         />
       </button>
 
-      <p className="text-xs font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-2">
+      <p className="text-xs font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-2 flex items-center gap-2">
+        {live && (
+          <span aria-hidden="true" data-testid="live-pulse" className="relative flex h-2 w-2">
+            <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--aurora-2))] opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[hsl(var(--aurora-2))]" />
+          </span>
+        )}
         {subtitle}
       </p>
       <h3 className="text-xl font-bold tracking-tight text-foreground mb-3 pr-10">
         {title}
       </h3>
+      {tagline && (
+        <p className="text-xs font-mono text-muted-foreground/80 -mt-2 mb-3">{tagline}</p>
+      )}
       <p className="text-sm leading-relaxed text-muted-foreground mb-5 flex-1">
         {description}
       </p>
 
       {demoNumbers && demoNumbers.length > 0 && (
-        <div className="mb-5 grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {demoNumbers.map(({ label, number }) => (
-            <a
-              key={number}
-              href={`tel:${number}`}
-              onClick={(e) => e.stopPropagation()}
-              className="flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-aurora text-white px-4 py-2.5 text-center shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <span className="inline-flex items-center gap-2 text-sm font-semibold">
-                <Phone className="w-4 h-4" />
-                Call {formatPhone(number)}
-              </span>
-              <span className="text-[11px] font-medium leading-tight opacity-85">{label}</span>
-            </a>
-          ))}
+        <div className="mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {demoNumbers.map(({ label, number }) => (
+              <a
+                key={number}
+                href={`tel:${number}`}
+                onClick={(e) => e.stopPropagation()}
+                className="flex flex-col items-center justify-center gap-0.5 rounded-2xl bg-aurora text-white px-4 py-2.5 text-center shadow-md shadow-[hsl(var(--aurora-2))]/30 hover:shadow-[hsl(var(--aurora-2))]/50 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <span className="inline-flex items-center gap-2 text-sm font-semibold">
+                  <Phone className="w-4 h-4" />
+                  Call {formatPhone(number)}
+                </span>
+                <span className="text-[11px] font-medium leading-tight opacity-85">{label}</span>
+              </a>
+            ))}
+          </div>
+          {demoHint && (
+            <p className="mt-2 text-xs italic text-muted-foreground/80">{demoHint}</p>
+          )}
         </div>
       )}
 

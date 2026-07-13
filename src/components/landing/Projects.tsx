@@ -18,6 +18,9 @@ const projects: ProjectCardData[] = [
       { number: '+1-971-455-1825', label: 'Summit Comfort — business demo (HVAC)' },
       { number: '+1-313-476-2606', label: 'Carol Carter — personal demo (family protection)' },
     ],
+    live: true,
+    tagline: 'Twilio ↔ OpenAI Realtime voice · in-call governance · encrypted caller KG',
+    demoHint: "Try: 'I'd like to book a service visit' — ninety seconds tells you more than this card can.",
   },
   {
     id: 'atlas',
@@ -31,6 +34,8 @@ const projects: ProjectCardData[] = [
     url: 'https://ml.aebauer.dev',
     screenshot: '/assets/landing/atlas-map.webp',
     demoCta: 'Explore the atlas',
+    live: true,
+    tagline: '12,000 papers · UMAP + RAPTOR · deck.gl relief',
   },
   {
     id: 'raptor',
@@ -44,6 +49,8 @@ const projects: ProjectCardData[] = [
     url: 'https://kg.aebauer.dev',
     screenshot: '/assets/landing/raptor-analyzer.webp',
     demoCta: 'Try the live demo',
+    live: true,
+    tagline: 'Tree-sitter ASTs · hierarchical summaries · WebSocket chat',
   },
 ];
 
