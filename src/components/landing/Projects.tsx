@@ -6,36 +6,39 @@ import SeraphoneArchitecture from './SeraphoneArchitecture';
 const projects: ProjectCardData[] = [
   {
     id: 'seraphone',
-    subtitle: 'AI Telephony — Live Demo',
+    subtitle: 'Featured · AI telephony · Live demo',
     title: 'Seraphone',
+    featured: true,
     description:
-      'Multi-tenant AI answering service replacing IVR for healthcare and professional services. Real-time voice, HIPAA-compliant, PostgreSQL knowledge graph, Twilio-backed. Two live demo lines below — call them.',
+      "Multi-tenant AI answering service replacing IVR for healthcare and professional services. HIPAA-compliant, with a PostgreSQL knowledge graph behind every call. Don't take the card's word for it. Call it.",
     longDescription:
       'Seraphone is a four-service mesh replacing IVR phone trees. Twilio media streams hit a FastAPI call engine holding a bidirectional WebSocket to the OpenAI Realtime API — an interruptible voice loop, governed while the call is live: compliance guardrails, spam and hostility detection, dead-air monitors, dynamic escalation. Call state fans out through Redis pub/sub to a live React dashboard. Tool actions — calendar, CRM, email — are offloaded to an MCP server behind one-time-nonce Fernet auth with tenant-bound credential injection. After hang-up, a post-call pipeline redacts PII, embeds with Vertex AI, and folds every call into a per-tenant caller knowledge graph on Postgres/pgvector, sensitive fields encrypted at rest.',
-    stack: ['Python', 'FastAPI', 'OpenAI Realtime', 'Twilio', 'PostgreSQL/pgvector', 'Redis', 'MCP', 'React'],
+    stack: ['Python', 'FastAPI', 'OpenAI Realtime', 'Twilio', 'pgvector', 'Redis', 'MCP'],
     url: 'https://seraphone.ai',
     screenshot: '/assets/landing/dashboard-mockup.png',
     diagram: SeraphoneArchitecture,
     demoNumbers: [
-      { number: '+1-971-455-1825', label: 'Summit Comfort — business demo (HVAC)' },
-      { number: '+1-313-476-2606', label: 'Carol Carter — personal demo (family protection)' },
+      { number: '+1-971-455-1825', label: 'Summit Comfort · business demo' },
+      { number: '+1-313-476-2606', label: 'Carol Carter · personal demo' },
     ],
     live: true,
-    tagline: 'Twilio ↔ OpenAI Realtime voice · in-call governance · encrypted caller KG',
-    demoHint: "Try: 'I'd like to book a service visit' — ninety seconds tells you more than this card can.",
+    tagline: 'Twilio ↔ OpenAI Realtime · in-call governance · encrypted caller KG',
+    demoHint:
+      'Try: "I\'d like to book a service visit." Ninety seconds tells you more than this card can.',
     lastShipped: 'July 2026',
     codeNote: 'Code available on request.',
+    howItWorksUrl: 'https://www.seraphone.ai/how-it-works',
   },
   {
     id: 'atlas',
-    subtitle: 'Embedding Atlas — Live Demo',
+    subtitle: 'Embedding atlas · Live demo',
     title: 'An Atlas of Machine Understanding',
     description:
-      '12,000 AI and philosophy papers embedded, projected with UMAP, and clustered into named regions by RAPTOR — drawn as a kernel-density relief map with filters and a full 3D view. The Guide: an agent that decomposes, retrieves, and cites. The 2019 R work survives as Foundations.',
+      '12,000 papers embedded, UMAP-projected, and RAPTOR-clustered into named regions. A kernel-density relief map with filters and a full 3D view.',
     longDescription:
       'Vol. 01 of a hand-set editorial atlas of the ML literature. Twelve thousand papers — arXiv, PhilArchive, OpenAlex, lab blogs — are embedded, projected to 2D with UMAP, and clustered bottom-up with RAPTOR into labeled regions like "LLM Mechanics" and "Metaphysics, Mind, and Epistemic Foundations." The Map renders the corpus as a kernel-density relief with deck.gl, filterable by source and year, with region focus and a 3D view. The Guide is an agent that decomposes a question, retrieves against the corpus, and cites what it used. The original 2019 R portfolio (SVM, PCA, k-means, CART, random forests, gradient boosting, splines) is preserved intact as Foundations.',
     stack: ['Python', 'FastAPI', 'PostgreSQL/pgvector', 'UMAP', 'RAPTOR', 'deck.gl (WebGL)', 'Vertex AI'],
-    url: 'https://ml.aebauer.dev',
+    url: 'https://ml.aebauer.dev/map',
     screenshot: '/assets/landing/atlas-map.webp',
     demoCta: 'Explore the atlas',
     live: true,
@@ -45,10 +48,10 @@ const projects: ProjectCardData[] = [
   },
   {
     id: 'raptor',
-    subtitle: 'RAPTOR Knowledge Graph — Live Demo',
+    subtitle: 'Knowledge graph · Live demo',
     title: 'AI Codebase Analyzer',
     description:
-      'Tree-sitter parses a codebase into ASTs; RAPTOR builds a hierarchical semantic graph; a chat engine answers architecture-level questions against the index.',
+      'Tree-sitter parses a repo into ASTs; RAPTOR summarizes upward; a chat engine answers architecture-level questions.',
     longDescription:
       "A codebase analyzer that turns a repo into a queryable knowledge graph. Tree-sitter parses every file into ASTs; the RAPTOR architecture clusters and summarizes upward to produce a hierarchical semantic graph; a chat engine surfaces answers to architecture-level questions — \"where does the auth boundary live?\", \"what gets touched if I rename this table?\" — without dumping raw code at the LLM.",
     stack: ['Python', 'Tree-sitter', 'RAPTOR', 'Vector Embeddings', 'WebSockets', 'PostgreSQL'],
@@ -62,9 +65,8 @@ const projects: ProjectCardData[] = [
   },
 ];
 
-// Rows of two; an odd trailing card renders centered at column width.
-const projectRows: ProjectCardData[][] = [];
-for (let i = 0; i < projects.length; i += 2) projectRows.push(projects.slice(i, i + 2));
+const featuredProject = projects.find((p) => p.featured)!;
+const secondaryProjects = projects.filter((p) => !p.featured);
 
 // Animated open/close height. Uses ResizeObserver so the drawer re-fits when
 // inner content size changes after the initial open (image loads, font swap, etc.).
@@ -144,15 +146,28 @@ const Projects: React.FC = () => {
     drawerRefs.current[openId]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
+  const toggle = (id: string) => () => setOpenId(openId === id ? null : id);
+
+  // A card group's drawer: single-open, shared across the cards in that group.
+  const renderDrawer = (project?: ProjectCardData) => (
+    <AnimateHeight open={Boolean(project)} onOpened={scrollOpenIntoView}>
+      {project && (
+        <div
+          ref={(el) => {
+            drawerRefs.current[project.id] = el;
+          }}
+        >
+          <ProjectDetail project={project} />
+        </div>
+      )}
+    </AnimateHeight>
+  );
+
   return (
-    <section
-      id="projects"
-      ref={containerRef}
-      className="relative py-24 md:py-32 scroll-mt-24"
-    >
+    <section id="projects" ref={containerRef} className="relative py-24 md:py-32 scroll-mt-24">
       <div className="container mx-auto px-6">
-        <div className="max-w-3xl mb-14">
-          <p className="text-sm font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
+        <div className="max-w-3xl mb-6">
+          <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
             Projects
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -160,44 +175,41 @@ const Projects: React.FC = () => {
           </h2>
         </div>
 
+        {/* Terminal-chrome meta row — states what's here, not a decorative sequence number. */}
+        <div className="flex items-center gap-3 mb-10 font-mono text-[11px] tracking-widest uppercase text-muted-foreground/70">
+          <span
+            aria-hidden="true"
+            className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--aurora-2))]"
+          />
+          <span className="whitespace-nowrap">3 systems · all live</span>
+          <span aria-hidden="true" className="h-px flex-1 bg-white/[0.08]" />
+        </div>
+
         <div className="flex flex-col gap-3">
-          {projectRows.map((row, rowIdx) => {
-            const openProject = row.find((p) => p.id === openId);
-            const cards = row.map((project) => (
-              <ProjectCard
-                key={project.id}
-                {...project}
-                isOpen={openId === project.id}
-                onToggle={() =>
-                  setOpenId(openId === project.id ? null : project.id)
-                }
-              />
-            ));
+          {/* Featured, full-width */}
+          <div className="flex flex-col gap-3">
+            <ProjectCard
+              {...featuredProject}
+              isOpen={openId === featuredProject.id}
+              onToggle={toggle(featuredProject.id)}
+            />
+            {renderDrawer(openId === featuredProject.id ? featuredProject : undefined)}
+          </div>
 
-            return (
-              <div key={rowIdx} className="flex flex-col gap-3">
-                {row.length === 1 ? (
-                  // Lone card: same width as one column of the two-up grid
-                  // below (50% minus half the gap-5), centered.
-                  <div className="md:w-[calc(50%-10px)] md:mx-auto">{cards}</div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">{cards}</div>
-                )}
-
-                <AnimateHeight open={Boolean(openProject)} onOpened={scrollOpenIntoView}>
-                  {openProject && (
-                    <div
-                      ref={(el) => {
-                        drawerRefs.current[openProject.id] = el;
-                      }}
-                    >
-                      <ProjectDetail project={openProject} />
-                    </div>
-                  )}
-                </AnimateHeight>
-              </div>
-            );
-          })}
+          {/* Secondary, two-up */}
+          <div className="flex flex-col gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {secondaryProjects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  {...project}
+                  isOpen={openId === project.id}
+                  onToggle={toggle(project.id)}
+                />
+              ))}
+            </div>
+            {renderDrawer(secondaryProjects.find((p) => p.id === openId))}
+          </div>
         </div>
       </div>
     </section>

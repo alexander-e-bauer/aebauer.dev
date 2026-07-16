@@ -1,119 +1,52 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { ArrowRight } from 'lucide-react';
 
-// Diagonal cut at the bottom: hero clips up-right (right side lifts higher than left),
-// matching the divider style from the old portfolio.
-const heroClipPath =
-  'polygon(0% 0%, 100% 0%, 100% calc(100% - 6rem), 0% 100%)';
-
-const PARALLAX_FACTOR = 0.6;
-
 const Hero: React.FC = () => {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduceMotion(mql.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    mql.addEventListener('change', onChange);
-    return () => mql.removeEventListener('change', onChange);
-  }, []);
-
-  // Direct DOM manipulation for parallax — bypasses React reconciliation on every
-  // scroll tick, which is what was making the motion feel jumpy.
-  // Uses `transform: translate3d` (universally supported + GPU-composited) rather
-  // than the newer CSS `translate` property.
-  useEffect(() => {
-    if (reduceMotion) {
-      if (bgRef.current) bgRef.current.style.transform = 'translate3d(0, 0, 0)';
-      return;
-    }
-    let raf = 0;
-    const update = () => {
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translate3d(0, ${window.scrollY * PARALLAX_FACTOR}px, 0)`;
-      }
-      raf = 0;
-    };
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [reduceMotion]);
-
   return (
     <section
       id="top"
-      className="relative pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden scroll-mt-24"
-      style={{ clipPath: heroClipPath, WebkitClipPath: heroClipPath }}
+      className="relative overflow-hidden scroll-mt-24 pt-32 pb-20 md:pt-40 md:pb-28"
     >
-      {/* Hex backdrop — overshoots the section vertically by ~70% so the stronger parallax
-          translate never exposes blank edges as the hero scrolls past the viewport.
-          Translated directly via ref in the rAF loop above. */}
-      <div
-        ref={bgRef}
-        aria-hidden="true"
-        className="hero-bg-image pointer-events-none absolute left-[-10%] right-[-10%] top-[-40%] bottom-[-40%] -z-20 bg-[url('/assets/landing/hero-bg.webp')] bg-cover bg-center"
-        style={{ willChange: reduceMotion ? undefined : 'transform' }}
-      />
-      {/* Dark wash so text and glass pane read against the photographic texture. */}
+      {/* Background layers — flat brand surface, faint dot-grid, one soft aurora blob. */}
+      <div aria-hidden="true" className="dot-grid pointer-events-none absolute inset-0 -z-10" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/70 via-background/55 to-background/85"
-      />
-      {/* Subtle aurora bleed — keeps the brand warmth without dominating. */}
-      <div
-        aria-hidden="true"
-        className="aurora-glow pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl opacity-50"
+        className="aurora-glow pointer-events-none absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full blur-[80px] opacity-35"
       />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Frosted glass pane — improves legibility over the hex texture. */}
-        <div className="relative mx-auto max-w-4xl rounded-3xl border border-white/10 bg-background/30 backdrop-blur-xl shadow-2xl shadow-black/30 px-6 py-12 md:px-14 md:py-16 text-center">
-          <p className="text-sm font-semibold tracking-widest uppercase text-muted-foreground mb-6">
-            Alex Bauer
+        <div className="max-w-[820px]">
+          <p className="font-mono text-[12.5px] text-muted-foreground mb-6">
+            Alex Bauer{' '}
+            <span className="text-[hsl(var(--aurora-2))]">//</span> builder + client-side operator
           </p>
-          <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.05] text-foreground">
-            I build <span className="text-aurora">AI-powered systems</span>
-            <br className="hidden md:block" />{' '}
-            and translate them for the people paying the bill.
+
+          <h1 className="font-heading text-[2.5rem] md:text-6xl font-bold tracking-[-0.03em] leading-[1.04] text-foreground mb-6">
+            I build <span className="text-aurora">AI-powered systems</span> that solve the
+            problem, then get out of the way.
           </h1>
 
-          <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-            Developer shipping production tools — an AI receptionist with two live demo lines
-            you can call right now, a 12,000-paper embedding atlas, a codebase knowledge graph.
-            Day job: primary contact for financial advisors, wealth managers, and trust attorneys.
-            Same skillset, both sides of the table.
+          <p className="text-[17px] leading-relaxed text-muted-foreground max-w-[560px] mb-10">
+            An AI receptionist with two live demo lines, a 12,000-paper embedding atlas, a
+            codebase knowledge graph. Shipped, not slideware. Day job: primary contact for
+            financial advisors, wealth managers, and trust attorneys.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              asChild
-              size="lg"
-              className="text-base px-7 py-6 rounded-full font-semibold bg-aurora text-white shadow-lg shadow-[hsl(var(--aurora-2))]/40 hover:shadow-[hsl(var(--aurora-2))]/60 hover:brightness-110 transition-all"
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-6 rounded-[10px] bg-aurora text-white text-[15px] font-semibold shadow-lg shadow-[hsl(var(--aurora-2))]/40 hover:shadow-[hsl(var(--aurora-2))]/60 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <a href="#projects">
-                View projects
-                <ArrowRight className="ml-1 w-5 h-5" />
-              </a>
-            </Button>
+              View projects
+              <ArrowRight className="w-4 h-4" />
+            </a>
 
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="text-base px-7 py-6 rounded-full font-medium bg-transparent border-white/15 text-foreground hover:bg-white/5 hover:border-white/30"
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-[10px] border border-white/[0.12] text-[15px] font-medium text-foreground hover:bg-white/5 hover:border-white/25 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <a href="#contact">Get in touch</a>
-            </Button>
+              Get in touch
+            </a>
           </div>
         </div>
       </div>

@@ -36,6 +36,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   --font-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @layer base {
@@ -43,10 +44,10 @@
      DARK AURORA (single mode — derived from logo)
      ========================================= */
   :root {
-    --background: 230 35% 7%;          /* deep indigo-black */
+    --background: 232 35% 5.5%;         /* deepened indigo-black — more contrast for the flat surface */
     --foreground: 210 40% 98%;
 
-    --card: 230 30% 10%;
+    --card: 231 30% 8.5%;
     --card-foreground: 210 40% 98%;
 
     --popover: 230 30% 10%;
@@ -133,16 +134,58 @@
 }
 
 .text-aurora {
+  /* Brighter stops + 120deg so the gradient reads cleanly on the deep surface. */
   background-image: linear-gradient(
-    135deg,
-    hsl(var(--aurora-1)) 0%,
-    hsl(var(--aurora-2)) 50%,
-    hsl(var(--aurora-3)) 100%
+    120deg,
+    hsl(20 95% 55%) 0%,
+    hsl(340 75% 60%) 50%,
+    hsl(273 60% 62%) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+}
+
+/* ================================================================
+   TERMINAL CHROME
+   ================================================================ */
+/* Faint dot-grid backdrop for the hero surface. */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* 1px gradient hairline — bar fades in from transparent at both ends.
+   Used for the featured project card's top edge. */
+.aurora-hairline {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--aurora-1)) 25%,
+    hsl(var(--aurora-2)) 50%,
+    hsl(var(--aurora-3)) 75%,
+    transparent 100%
+  );
+}
+
+/* ================================================================
+   SERAPHONE DIAGRAM — animated aurora flow on the live-call path
+   ================================================================ */
+@keyframes sera-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+/* Base (and reduced-motion) state: solid stroke, no dash. */
+.sera-edge--live {
+  stroke-dasharray: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sera-edge--live {
+    stroke-dasharray: 5 7;
+    animation: sera-flow 1.1s linear infinite;
+  }
 }
 
 .aurora-glow {

@@ -73,7 +73,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
         {/* Long-form copy + site CTA */}
         <div className="md:col-span-2 flex flex-col">
           <div className="flex items-baseline justify-between gap-4 mb-2">
-            <p className="text-xs font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))]">
+            <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))]">
               About this project
             </p>
             {project.lastShipped && (
@@ -121,6 +121,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
                   </Button>
                 )}
               </div>
+              {project.howItWorksUrl && (
+                <a
+                  href={project.howItWorksUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="mt-3 inline-flex items-center gap-1 font-mono text-xs text-muted-foreground hover:text-[hsl(var(--aurora-2))] transition-colors focus-visible:outline-none focus-visible:text-[hsl(var(--aurora-2))]"
+                >
+                  Non-technical version: how a call flows
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </a>
+              )}
               {project.codeNote && (
                 <p className="mt-3 text-xs italic text-muted-foreground/70">{project.codeNote}</p>
               )}

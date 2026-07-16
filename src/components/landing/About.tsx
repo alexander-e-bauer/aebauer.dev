@@ -4,7 +4,7 @@ const About: React.FC = () => {
   return (
     <section id="about" className="relative py-24 md:py-32 scroll-mt-24">
       <div className="container mx-auto px-6 max-w-3xl">
-        <p className="text-sm font-semibold tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
+        <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
           About
         </p>
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-10">
