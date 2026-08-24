@@ -16,23 +16,23 @@ const Hero: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-[820px]">
-          <p className="font-mono text-[12.5px] text-muted-foreground mb-6">
+          <p className="hero-reveal font-mono text-[12.5px] text-muted-foreground mb-6">
             Alex Bauer{' '}
             <span className="text-[hsl(var(--aurora-2))]">//</span> builder + client-side operator
           </p>
 
-          <h1 className="font-heading text-[2.5rem] md:text-6xl font-bold tracking-[-0.03em] leading-[1.04] text-foreground mb-6">
+          <h1 className="hero-reveal hero-reveal-2 font-heading text-[2.5rem] md:text-6xl font-bold tracking-[-0.03em] leading-[1.04] text-foreground mb-6">
             I build <span className="text-aurora">AI-powered systems</span> that solve the
             problem, then get out of the way.
           </h1>
 
-          <p className="text-[17px] leading-relaxed text-muted-foreground max-w-[560px] mb-10">
+          <p className="hero-reveal hero-reveal-3 text-[17px] leading-relaxed text-muted-foreground max-w-[560px] mb-10">
             An AI receptionist with two live demo lines, a 12,000-paper embedding atlas, a
             codebase knowledge graph. Shipped, not slideware. Day job: primary contact for
             financial advisors, wealth managers, and trust attorneys.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="hero-reveal hero-reveal-4 flex flex-col sm:flex-row gap-4">
             <a
               href="#projects"
               className="inline-flex items-center justify-center gap-1.5 h-11 px-6 rounded-[10px] bg-aurora text-white text-[15px] font-semibold shadow-lg shadow-[hsl(var(--aurora-2))]/40 hover:shadow-[hsl(var(--aurora-2))]/60 hover:brightness-110 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
