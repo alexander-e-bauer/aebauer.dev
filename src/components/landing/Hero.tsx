@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
         className="aurora-glow pointer-events-none absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full blur-[80px] opacity-35"
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10 relative z-10">
         <div className="max-w-[820px]">
           <p className="hero-reveal font-mono text-[12.5px] text-muted-foreground mb-6">
             Alex Bauer{' '}

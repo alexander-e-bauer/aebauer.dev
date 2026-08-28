@@ -32,7 +32,7 @@ const links: ContactLink[] = [
 const Contact: React.FC = () => {
   return (
     <section id="contact" className="relative py-24 md:py-32 scroll-mt-24">
-      <div className="container mx-auto px-6 max-w-3xl">
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-10">
         <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
           Contact
         </p>

@@ -4,7 +4,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 const Footer: React.FC = () => {
   return (
     <footer className="relative border-t border-white/5 py-10">
-      <div className="container mx-auto px-6">
+      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 pb-6 mb-6 border-b border-white/5 text-sm text-muted-foreground">
           <p>
             <span className="text-foreground font-medium">Currently building:</span>{' '}

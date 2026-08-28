@@ -13,7 +13,7 @@ const HowIWork: React.FC = () => {
       id="how-i-work"
       className="relative py-24 md:py-32 scroll-mt-24 border-y border-white/[0.06] bg-white/[0.015]"
     >
-      <div className="container mx-auto px-6">
+      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
         <div className="max-w-5xl mx-auto">
           <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
             Approach
