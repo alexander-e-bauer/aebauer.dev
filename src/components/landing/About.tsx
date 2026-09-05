@@ -71,7 +71,7 @@ const About: React.FC = () => {
                 <strong className="text-foreground font-semibold">
                   an Atlas of Machine Understanding
                 </strong>
-                , 12,000 papers embedded, UMAP-projected, and RAPTOR-clustered into a navigable map;{' '}
+                , 21,790 papers embedded, UMAP-projected, and RAPTOR-clustered into a navigable map;{' '}
                 <strong className="text-foreground font-semibold">an AI codebase analyzer</strong>{' '}
                 built on the RAPTOR architecture; and{' '}
                 <strong className="text-foreground font-semibold">

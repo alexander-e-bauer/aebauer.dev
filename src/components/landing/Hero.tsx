@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className="hero-reveal hero-reveal-3 text-[17px] leading-relaxed text-muted-foreground max-w-[560px] mb-10">
-            An AI receptionist with two live demo lines, a 12,000-paper embedding atlas, a
+            An AI receptionist with two live demo lines, a 21,790-paper embedding atlas, a
             codebase knowledge graph. Shipped, not slideware. Day job: primary contact for
             financial advisors, wealth managers, and trust attorneys.
           </p>

@@ -34,15 +34,15 @@ const projects: ProjectCardData[] = [
     subtitle: 'Embedding atlas · Live demo',
     title: 'An Atlas of Machine Understanding',
     description:
-      '12,000 papers embedded, UMAP-projected, and RAPTOR-clustered into named regions. A kernel-density relief map with filters and a full 3D view.',
+      '21,790 papers embedded, UMAP-projected, and RAPTOR-clustered into 36 clusters and nine named regions. A kernel-density relief map with filters and a full 3D view.',
     longDescription:
-      'Vol. 01 of a hand-set editorial atlas of the ML literature. Twelve thousand papers — arXiv, PhilArchive, OpenAlex, lab blogs — are embedded, projected to 2D with UMAP, and clustered bottom-up with RAPTOR into labeled regions like "LLM Mechanics" and "Metaphysics, Mind, and Epistemic Foundations." The Map renders the corpus as a kernel-density relief with deck.gl, filterable by source and year, with region focus and a 3D view. The Guide is an agent that decomposes a question, retrieves against the corpus, and cites what it used. The original 2019 R portfolio (SVM, PCA, k-means, CART, random forests, gradient boosting, splines) is preserved intact as Foundations.',
+      'Vol. 01 of a hand-set editorial atlas of the ML literature. 21,790 papers — arXiv, PhilArchive, OpenAlex, lab blogs — are embedded, projected to 2D with UMAP, and clustered bottom-up with RAPTOR into 36 clusters and nine labeled regions like "AI, Society, and Economic Governance" and "Foundational Inquiry: Science, Mind, and Reality." The Map renders the corpus as a kernel-density relief with deck.gl, filterable by source and year, with region focus and a 3D view. The Guide is an agent that decomposes a question, retrieves against the corpus, and cites what it used. The original 2019 R portfolio (SVM, PCA, k-means, CART, random forests, gradient boosting, splines) is preserved intact as Foundations.',
     stack: ['Python', 'FastAPI', 'PostgreSQL/pgvector', 'UMAP', 'RAPTOR', 'deck.gl (WebGL)', 'Vertex AI'],
     url: 'https://ml.aebauer.dev/map',
     screenshot: '/assets/landing/atlas-map.webp',
     demoCta: 'Explore the atlas',
     live: true,
-    tagline: '12,000 papers · UMAP + RAPTOR · deck.gl relief',
+    tagline: '21,790 papers · UMAP + RAPTOR · deck.gl relief',
     lastShipped: 'June 2026',
     github: 'https://github.com/alexander-e-bauer/r_machine_learning',
   },
