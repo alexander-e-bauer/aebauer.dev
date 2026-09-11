@@ -1,10 +1,11 @@
 import React from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
+import Container from './Container';
 
 const Footer: React.FC = () => {
   return (
     <footer className="relative border-t border-white/5 py-10">
-      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
+      <Container>
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 pb-6 mb-6 border-b border-white/5 text-sm text-muted-foreground">
           <p>
             <span className="text-foreground font-medium">Currently building:</span>{' '}
@@ -35,15 +36,6 @@ const Footer: React.FC = () => {
               <Mail className="w-5 h-5" />
             </a>
             <a
-              href="https://github.com/alexander-e-bauer"
-              aria-label="GitHub"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[hsl(var(--aurora-2))] transition-colors focus-visible:outline-none focus-visible:text-[hsl(var(--aurora-2))]"
-            >
-              <Github className="w-5 h-5" />
-            </a>
-            <a
               href="https://www.linkedin.com/in/alexander-e-bauer"
               aria-label="LinkedIn"
               target="_blank"
@@ -54,7 +46,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };

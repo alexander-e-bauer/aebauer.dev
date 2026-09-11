@@ -16,7 +16,12 @@ export interface ProjectCardData {
   longDescription?: string;
   stack: string[];
   url: string;
+  /** Card-level artifact (the featured card's right column). */
   screenshot?: string;
+  /** Alt text for the card artifact; defaults to "<title> screenshot". */
+  screenshotAlt?: string;
+  /** Drawer-level artifact when it should differ from the card's; falls back to `screenshot`. */
+  detailScreenshot?: string;
   demoNumbers?: DemoNumber[];
   /** Label for an always-visible "open the live demo" button on the card. */
   demoCta?: string;
@@ -101,7 +106,7 @@ const ChevronToggle: React.FC<{
 );
 
 const cardEyebrowClass =
-  'font-mono text-[11px] tracking-widest uppercase text-[hsl(var(--aurora-2))] flex items-center gap-2';
+  'font-mono text-[11px] tracking-widest uppercase text-[hsl(var(--aurora-2))] flex items-center gap-2 pr-10';
 
 const ProjectCard: React.FC<ProjectCardProps> = (props) => {
   const {
@@ -112,6 +117,7 @@ const ProjectCard: React.FC<ProjectCardProps> = (props) => {
     stack,
     url,
     screenshot,
+    screenshotAlt,
     demoNumbers,
     demoCta,
     tagline,
@@ -216,7 +222,7 @@ const ProjectCard: React.FC<ProjectCardProps> = (props) => {
             <div className="rounded-xl border border-white/10 overflow-hidden bg-white/[0.02]">
               <img
                 src={screenshot}
-                alt={`${title} live call dashboard`}
+                alt={screenshotAlt ?? `${title} screenshot`}
                 className="w-full h-auto block"
                 loading="lazy"
               />

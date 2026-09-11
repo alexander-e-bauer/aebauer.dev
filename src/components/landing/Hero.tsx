@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import Container from './Container';
 
 const Hero: React.FC = () => {
   return (
@@ -14,7 +15,7 @@ const Hero: React.FC = () => {
         className="aurora-glow pointer-events-none absolute -top-40 -right-40 w-[640px] h-[640px] rounded-full blur-[80px] opacity-35"
       />
 
-      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10 relative z-10">
+      <Container className="relative z-10">
         <div className="max-w-[820px]">
           <p className="hero-reveal font-mono text-[12.5px] text-muted-foreground mb-6">
             Alex Bauer{' '}
@@ -27,7 +28,7 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className="hero-reveal hero-reveal-3 text-[17px] leading-relaxed text-muted-foreground max-w-[560px] mb-10">
-            An AI receptionist with two live demo lines, a 21,790-paper embedding atlas, a
+            An AI receptionist with two live demo lines, a 26,988-paper research atlas, a
             codebase knowledge graph. Shipped, not slideware. Day job: primary contact for
             financial advisors, wealth managers, and trust attorneys.
           </p>
@@ -49,7 +50,7 @@ const Hero: React.FC = () => {
             </a>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

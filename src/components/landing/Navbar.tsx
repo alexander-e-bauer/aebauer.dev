@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
+import Container from './Container';
 
 const navLinkClass =
   'font-mono text-[12.5px] lowercase text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:text-foreground rounded-sm';
@@ -14,7 +15,7 @@ const navLinks: { label: string; href: string }[] = [
 const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.07] bg-background/70 backdrop-blur-md">
-      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10 py-3.5 flex items-center justify-between gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
+      <Container className="py-3.5 flex items-center justify-between gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
         {/* Wordmark — the domain lives in the bar; the name lives in the hero eyebrow. */}
         <a
           href="#top"
@@ -60,7 +61,7 @@ const Navbar: React.FC = () => {
             <span className="hidden lg:inline">Get in touch</span>
           </a>
         </div>
-      </div>
+      </Container>
     </nav>
   );
 };

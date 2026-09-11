@@ -10,4 +10,11 @@ describe('Footer', () => {
       'https://github.com/alexander-e-bauer/aebauer.dev'
     );
   });
+
+  it('links email and LinkedIn but not the GitHub profile', () => {
+    render(<Footer />);
+    expect(screen.getByRole('link', { name: 'Email' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'LinkedIn' })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'GitHub' })).not.toBeInTheDocument();
+  });
 });

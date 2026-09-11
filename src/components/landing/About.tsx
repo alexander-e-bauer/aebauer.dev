@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from './Container';
 
 /* Career arc as a skim layer — every entry is stated in the prose alongside.
    The two "now" tracks run in parallel: that's the heading's claim, drawn. */
@@ -12,8 +13,8 @@ const timeline: { era: string; detail: string; current?: boolean }[] = [
 const About: React.FC = () => {
   return (
     <section id="about" className="relative py-24 md:py-32 scroll-mt-24">
-      <div className="mx-auto w-full max-w-[1400px] px-6 md:px-10">
-        <div className="max-w-5xl mx-auto">
+      <Container>
+        <div className="max-w-5xl">
           <p className="font-mono text-xs tracking-widest uppercase text-[hsl(var(--aurora-2))] mb-4">
             About
           </p>
@@ -66,14 +67,12 @@ const About: React.FC = () => {
               </p>
               <p>
                 Now I ship:{' '}
-                <strong className="text-foreground font-semibold">Seraphone</strong>, a HIPAA-compliant
-                AI telephony platform with two live demo lines you can call;{' '}
-                <strong className="text-foreground font-semibold">
-                  an Atlas of Machine Understanding
-                </strong>
-                , 21,790 papers embedded, UMAP-projected, and RAPTOR-clustered into a navigable map;{' '}
-                <strong className="text-foreground font-semibold">an AI codebase analyzer</strong>{' '}
-                built on the RAPTOR architecture; and{' '}
+                <strong className="text-foreground font-semibold">Seraphone</strong>, a real-time AI
+                answering service with encrypted caller memory and two live demo lines you can call;{' '}
+                <strong className="text-foreground font-semibold">Atlas in Relief</strong>, 26,988 papers and
+                thirteen disciplines drawn as a relief map, a citation lineage, and their turning points;{' '}
+                <strong className="text-foreground font-semibold">a RAPTOR code knowledge graph</strong>{' '}
+                that answers architecture-level questions about a codebase; and{' '}
                 <strong className="text-foreground font-semibold">
                   a vector-embedding recommendation engine
                 </strong>{' '}
@@ -84,7 +83,7 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

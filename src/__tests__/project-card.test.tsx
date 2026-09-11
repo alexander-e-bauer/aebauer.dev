@@ -35,3 +35,18 @@ describe('ProjectCard skim layer', () => {
     expect(screen.queryByText('alpha · beta · gamma')).not.toBeInTheDocument();
   });
 });
+
+describe('ProjectCard featured artifact', () => {
+  it('uses screenshotAlt for the featured image, with a generic fallback', () => {
+    const { unmount } = render(
+      <ProjectCard {...base} featured screenshot="/a.png" screenshotAlt="Seraphone landing page" />
+    );
+    expect(screen.getByRole('img', { name: 'Seraphone landing page' })).toHaveAttribute(
+      'src',
+      '/a.png'
+    );
+    unmount();
+    render(<ProjectCard {...base} featured screenshot="/a.png" />);
+    expect(screen.getByRole('img', { name: 'X Project screenshot' })).toBeInTheDocument();
+  });
+});

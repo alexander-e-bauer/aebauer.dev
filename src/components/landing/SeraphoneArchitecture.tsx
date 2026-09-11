@@ -34,7 +34,7 @@ const NODES: DiagramNode[] = [
   { id: 'redis', col: 2, row: 2, title: 'Redis', sub: 'call state · TTL · pub/sub', explain: 'Holds live call state and broadcasts every update so the rest of the system can react instantly.' },
   { id: 'backend', col: 3, row: 2, title: 'REST backend', sub: 'WebSocket router', explain: 'Subscribes to call events and pushes them to the dashboard the moment they happen.' },
   { id: 'dashboard', col: 4, row: 2, title: 'React dashboard', sub: 'live call view', explain: 'Staff watch calls unfold live (transcript, status, escalation), updating in real time.' },
-  { id: 'mcp', col: 2, row: 3, title: 'MCP tool server', sub: 'calendar · CRM · email', explain: 'When the assistant needs to act (book a visit, look up a record), it calls tools here behind per-tenant credentials.' },
+  { id: 'mcp', col: 2, row: 3, title: 'MCP tool server', sub: 'booking · calendar · location', explain: 'When the assistant needs to act (check availability, book a visit, verify an address), it calls tools here. The server fetches the tenant\'s own credentials and rejects any sent in the request.' },
   { id: 'postcall', col: 3, row: 3, title: 'Post-call pipeline', sub: 'redaction · summaries · embeddings', explain: 'After hang-up: strips sensitive data, summarizes the call, and embeds it for memory.' },
   { id: 'kg', col: 4, row: 3, title: 'Caller knowledge graph', sub: 'Postgres/pgvector · HNSW', explain: 'Every call folds into an encrypted, searchable memory of who called and why.' },
 ];

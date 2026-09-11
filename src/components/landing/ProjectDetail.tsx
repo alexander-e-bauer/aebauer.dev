@@ -10,7 +10,10 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
   const drawerId = `project-drawer-${project.id}`;
   const hasUrl = project.url && project.url !== 'TODO';
-  const hasScreenshot = Boolean(project.screenshot);
+  // The drawer may show a different artifact than the card (e.g. the card shows the
+  // product's landing page, the drawer shows the pipeline behind it).
+  const screenshotSrc = project.detailScreenshot ?? project.screenshot;
+  const hasScreenshot = Boolean(screenshotSrc);
 
   // Real screenshots preserve their natural aspect ratio (aspect-video).
   // Placeholders use a tighter fixed height so the drawer doesn't gain ~400px of empty space.
@@ -18,7 +21,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project }) => {
 
   const screenshotInner = hasScreenshot ? (
     <img
-      src={project.screenshot}
+      src={screenshotSrc}
       alt={`${project.title} screenshot`}
       className="w-full h-full object-cover"
       loading="lazy"

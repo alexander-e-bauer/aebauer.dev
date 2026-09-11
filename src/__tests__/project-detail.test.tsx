@@ -36,3 +36,25 @@ describe('ProjectDetail drawer meta', () => {
     expect(screen.queryByRole('link', { name: /view code/i })).not.toBeInTheDocument();
   });
 });
+
+describe('ProjectDetail screenshot pane', () => {
+  it('prefers detailScreenshot over the card screenshot', () => {
+    render(
+      <ProjectDetail
+        project={{ ...base, screenshot: '/card.png', detailScreenshot: '/drawer.png' }}
+      />
+    );
+    expect(screen.getByRole('img', { name: /x project screenshot/i })).toHaveAttribute(
+      'src',
+      '/drawer.png'
+    );
+  });
+
+  it('falls back to the card screenshot when detailScreenshot is unset', () => {
+    render(<ProjectDetail project={{ ...base, screenshot: '/card.png' }} />);
+    expect(screen.getByRole('img', { name: /x project screenshot/i })).toHaveAttribute(
+      'src',
+      '/card.png'
+    );
+  });
+});
