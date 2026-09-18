@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Linkedin, FileText, ArrowUpRight } from 'lucide-react';
+import { Mail, Linkedin, Github, FileText, ArrowUpRight } from 'lucide-react';
 import Container from './Container';
 
 interface ContactLink {
@@ -11,8 +11,8 @@ interface ContactLink {
   download?: boolean;
 }
 
-// No GitHub card on purpose: nearly all of the work is in private repos, so the
-// public profile under-represents it. Code links live on the project cards instead.
+// The GitHub card points at the profile, not a repo. Most of the work is in private
+// repos, so the profile README carries the context and the links to the live projects.
 const links: ContactLink[] = [
   {
     label: 'Email',
@@ -25,6 +25,12 @@ const links: ContactLink[] = [
     value: 'linkedin.com/in/alexander-e-bauer',
     href: 'https://www.linkedin.com/in/alexander-e-bauer',
     Icon: Linkedin,
+  },
+  {
+    label: 'GitHub',
+    value: 'github.com/alexander-e-bauer',
+    href: 'https://github.com/alexander-e-bauer',
+    Icon: Github,
   },
   {
     label: 'Résumé',
@@ -51,7 +57,7 @@ const Contact: React.FC = () => {
           everything.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {links.map(({ label, value, href, Icon, download }) => (
             <a
               key={label}
